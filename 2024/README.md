@@ -1,0 +1,11 @@
+# Supercon 2024 Badge Projects
+
+My 2024 Supercon badge add-on is a real-time CO2 monitor with simple "stoplight" display of overall air quality using red, yellow, and green LEDs:
+* SCD40 CO2 sensor, in particular the Adafruit breakout board version, which is small, supports I2C via either Qwiic connectors or dedicated wiring, provides additional support components for ease of use, and has mounting holes that allow it to be piggy-backed on a larger overall board.
+* Rectangular LEDs with a thin outer case, allowing them to be grouped into a single status bar.
+* Simple digital logic that translates the SAO connector's two GPIO digital inputs into control for the three LEDs. For me this is a delightful throwback to my college Electrical Engineering days almost exactly fifty years ago.  I know I could do this in other ways, e.g. with a smart RGB LED but wanted to re-experience low-level digital design.
+* Presumption of programming in Python with an RP2040 main processor on the badge itself.  (This is a guess based on prior year's badges, and won't be known for sure until about two weeks before Supercon.  Hopefully I'm not too far off.)
+
+I used [KiCad](https://kicad.org) to design a printed circuit board (PCB) that could  directly mount the LEDs, digital logic circuit, and SAO badge connector and also support the SCD40 breakout board both via mounting holes and connection points for the I2C interface. In the process I realized I'd need to build and test the add-on without actually having the badge in hand.  That led to the design of a simple SAO breakout board PCB that could handle either a female SAO connector (to simulate the badge itself) or a male SAO connector (to simulate being an add-on).  KiCad projects for both are here as well.
+
+Also as interim development platform, I used one of my readily available Adafruit Feather RP2040 boards as a stand-in for the badge.  That made it possible to breadboard the CO2 add-on's LED logic and connect to the SCD40, increasing my confidence in attempting a PCB design.  Software for that prototype was developed in CircuitPython, which is Adafruit's preferred Python environment, knowing I could migrate to MicroPython later on when badge details were known.
