@@ -1,0 +1,5 @@
+# CircuitPython Work
+
+My earliest efforts at developing software for a Supercon 2024 badge add-on started with CircuitPython largely because the hardware I had at hand, both the Adafruit Feather RP2040 and SCD40 CO2 sensor breakout board, supported CircuitPython.  At this stage I was focused on prototyping something consistent with the general hardware environment a badge add-on would likely face, giving me as much time before the conference as possible to attempt a custom PCB design (or at least hand-wire something custom I could use with the badge).
+
+I was sufficiently successful with that prototyping that I had time to learn my way around KiCad and produce a custom PCB design for my badge add-on.  Once the PCB order was placed I figured I could switch gears and tackle MicroPython, which was my (uneducated) guess as to the likely environment the 2024 Supercon badge would support.
