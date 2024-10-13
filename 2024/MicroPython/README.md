@@ -1,0 +1,7 @@
+# MicroPython Work
+
+While we won't know until a week or two before the event what runtime environment and development platform will be supported with the 2024 Supercon badge, my guess is that it'll be based on the Raspberry Pi Pico 2 and MicroPython.  That's pretty much entirely because the 2023 badge was based on the Pico, though Pico devices are designed to enable physical embedding in other devices making them well suited for applications like the Supercon badge.
+
+In an effort to be pepared, I've already begun work developing software that could run on MicroPython and support the hardware required for the CO2 SAO badge add-on I have in mind for this year.  Largely that means being able to support the Sensirion SCD40 CO2 sensor, and although Sensirion doesn't seem to offer a MicroPython version of their SCD4X Python library I was delighted to find a [MicroPython port](https://github.com/peter-l5/MicroPython_SCD4X) of Adafruit's CircuitPython SCD4X library thanks to the good work of @peter-i5.
+
+Also, delightfully, MicroPython is [supported for the Adafruit Feather RPI2040](https://micropython.org/download/ADAFRUIT_FEATHER_RP2040/), which means I can use it for developing with either CircuitPython (as I have generally been doing up to now or MicroPython, or even both simultaneously.
