@@ -16,4 +16,4 @@ I've acquired a couple of Raspberry Pi Pico W devices to use in gearing up.  A v
 * `co2_sao_test.py` - A stand-alone program to interface with my CO2 add-on hardware directly without any assumptions about how the badge will actually work.  This was my starting point for add-on development before knowing anything about this year's badge hardware, and is still useful for easy testing of the add-on.
 
 ## Current Working Prototype
-![CO2 SAO Prototype](/assets/co2sao.jpg)
+![CO2 SAO Prototype](/2024/assets/co2sao.jpg)
