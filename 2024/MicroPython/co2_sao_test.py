@@ -32,6 +32,7 @@ import machine
 from machine import Pin
 import time
 import scd4x
+from measure import Measure
 
 # Map LED control values (GPIO1 & GPIO2) to LED colors. Must agree with wiring
 # on Stoplight controller board.  We're using a Grey code scheme for green ->
@@ -61,19 +62,17 @@ CO2_ALARM = 1000
 
 # Get readings from the SCD40, which can report CO2, temperature & relative humidity
 # Note that this blocks until the sensor reports it has data ready
-def readco2():
+def readscd4x():
     global scd4x
     
     while True:
         if scd4x.data_ready:
             tempF = (scd4x.temperature * 1.8) + 32.0
-            print("%d CO2 ppm, %0.1f *F, %0.1f %%RH" % 
-                (scd4x.CO2, tempF, scd4x.relative_humidity))
             # print("CO2: %d ppm" % scd4x.CO2)
             # print("Temperature: %0.1f *C" % scd4x.temperature)
             # print("Humidity: %0.1f %%" % scd4x.relative_humidity)
             # print()
-            return scd4x.CO2
+            return scd4x.CO2, tempF, scd4x.relative_humidity
         else:
             time.sleep(1);
     
@@ -111,6 +110,7 @@ def setLED(newstatus):
 
 def init():
     global scd4x,_led_bit0, _led_bit1, _co2_status
+    
     # On-board LED, which isn't used normally but might be useful for debugging
     # led = Pin("LED", Pin.OUT)
 
@@ -123,8 +123,8 @@ def init():
     # pins identified as "5" (D5) and "6" (D6) on the Adafruit Feather RP2040
     # itself are actually GPIO7 and GPIO8 (so must be identified as "7" and "8" \
     # respectively in calls to the MicroPython Pin() class.
-    _led_bit0 = Pin(7, Pin.OUT)
-    _led_bit1 = Pin(8, Pin.OUT)
+    _led_bit0 = Pin(14, Pin.OUT)
+    _led_bit1 = Pin(15, Pin.OUT)
 
     # Initialize LEDs to all off, overall CO2 status is off
     _led_bit0.value(0)
@@ -132,13 +132,18 @@ def init():
     _co2_status = OFF
 
     # Connect to SCD40 and initialize
-    i2c = machine.I2C(1)  # For using the Feather RP2040 built-in STEMMA QT connector
+    # i2c = machine.I2C(1)  # For using the Feather RP2040 built-in STEMMA QT connector
+    # Raspberry Pi Pico W use the below
+    sdaPIN=machine.Pin(0)
+    sclPIN=machine.Pin(1)
+    i2c=machine.I2C(0,sda=sdaPIN, scl=sclPIN, freq=400000)
     scd4x = scd4x.SCD4X(i2c)
+
 
     # Make sure measurement is stopped so we can properly configure
     # the SCD40 and control which measurement mode to use
     scd4x.stop_periodic_measurement()
-    # print("Serial number:", [hex(i) for i in scd4x.serial_number])
+    print("Serial number:", [hex(i) for i in scd4x.serial_number])
 
     # Configure SDCD40 for local use. Must do before starting measurement
     scd4x.temperature_offset = 0.0
@@ -154,9 +159,19 @@ def init():
 
 def main():
     init()
+    counter = 0
+    co2data = Measure()
     while True:
         # Read data from the SCD40, blocking until it has data
-        co2value = readco2()
+        co2value,tempF, relative_humidity = readscd4x()
+        counter = counter + 1
+        
+        # Accumulate lastest data
+        co2data.include(co2value)
+        
+        print("#%d: %d CO2 ppm, %0.1f *F, %0.1f %%RH  (CO2: %d->%d->%d)" % 
+                (counter,co2value, tempF, relative_humidity,
+                 co2data.getMinimum(),co2data.getAverage(), co2data.getMaximum()))
         
         # Calculate green/yellow/red CO2 air quality status from CO2 value
         newstatus = co2status(co2value)
@@ -164,10 +179,9 @@ def main():
         # Set status, which may result in updating stoplight LEDs
         setLED(newstatus)
 
-        # Sleep for our sample delay period (though the SCD40 runs on its own
+        # Sleep for a chunk of the sample delay period (though the SCD40 runs on its own
         # sampling clock
-        time.sleep(SAMPLE_DELAY)
+        time.sleep(SAMPLE_DELAY/4)
         
 if __name__=="__main__":
     main()
-
