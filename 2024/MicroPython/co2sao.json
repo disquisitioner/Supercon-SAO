@@ -1,0 +1,11 @@
+{
+    "_comment"    : "Configfile for CO2 Stoplight SAO add-on"
+    "sampleDelay" : 40,
+    "altitude"    : 275,
+    "co2Warning"  : 800,
+    "co2Alarm"    : 1000,
+    "tempOffsetC" : 0.0,
+    "stoplightLSB": 7,
+    "stoplightMSB": 6,
+    "badgePort"   : 1
+}
