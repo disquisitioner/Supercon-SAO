@@ -14,9 +14,6 @@ This means your 2024 badge addons need to be aware of two I2C busses and be flex
 
 In this repo I've setup separate subfolders for code that's intended to be used on a generic Pico W or on the Supercon badge. I often have both environments available during development (especially during Badge Hacking Day at Supercon itself) so not getting confused about which code runs where is important.
 
-
-After much anticipation and preparatory guesswork, the Supercon 2024 badge was finally officially [revealed](https://hackaday.com/2024/10/22/the-2024-hackaday-supercon-sao-badge-reveal/) on October 22, just ten days before the event.  Delightfully, this year's theme is all about making the most of the Supercon Add-on (SAO) expansion interface that has grown over the years to provide a flexible environrment for building new and novel devices that can operate onboard the event badge. Details on badge operation and programming are still not known, but the work is happening in an open [repository](https://github.com/Hack-a-Day/2024-Supercon-8-Add-On-Badge) we can watch (and contribute to) over the days leading up to the conference.
-
 Generally speaking what's in each subfolder is the proper variant of the following: 
 * `fauxbadge.py` - An attempt to simulate the badge software itself, which I'm guessing will handle boot-time initialization for the badge hardware and then transition to a simple main loop for ongoing operation across whichever add-ons are installed.  Both initialization and main loop will be extensible in some way to allow add-ons to be easiy added and arranged.  Until we know more I'm trying to keep this as simple as possible.
 * `co2sao.py` - A minimalistic handler for the CO2 monitor add-on, providing an initializing routine as well an update function called from the badge main loop to retrieve air quality information from the add-on's sensor and update the on-board LED status bar accordingly.
@@ -25,6 +22,9 @@ Generally speaking what's in each subfolder is the proper variant of the followi
 
 A few things work in both environments:
 * `scd4x.py` - A MicroPython port of the Adafruit SCD4x CircuitPython library, courtesy of @peter-l5 on [GitHub](https://github.com/peter-l5/MicroPython_SCD4X).
+
+## The CO2 Supercon Add-On (SAO)
+![CO2 SAO Prototype](/2024/assets/CO2_SAO_v1.jpg)
 
 ## Current Working Prototype
 This is the first working instance of the CO2 SAO printed circuit board, in this case just with the circuitry to drive the "stoplight" of red, yellow and green LEDs.  You can see the SCD40 CO2 sensor on its separate brekaout board, connected to the Pico W via a Qwiic connector.
