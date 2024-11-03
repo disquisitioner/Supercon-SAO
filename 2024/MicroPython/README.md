@@ -22,11 +22,3 @@ Generally speaking what's in each subfolder is the proper variant of the followi
 
 A few things work in both environments:
 * `scd4x.py` - A MicroPython port of the Adafruit SCD4x CircuitPython library, courtesy of @peter-l5 on [GitHub](https://github.com/peter-l5/MicroPython_SCD4X).
-
-## The CO2 Supercon Add-On (SAO)
-Here's the fully-assembled CO2 SAO, showing both the "stoplight" red/yellow/green LEDs on the board underneath and the Adafruit SCD40x breakout board mounted atop.
-![CO2 SAO Prototype](/2024/assets/CO2_SAO_v1.png)
-
-## Current Working Prototype
-This is the first working instance of the CO2 SAO printed circuit board, in this case just with the circuitry to drive the "stoplight" of red, yellow and green LEDs.  You can see the SCD40 CO2 sensor on its separate brekaout board, connected to the Pico W via a Qwiic connector.
-![CO2 SAO Prototype](/2024/assets/co2sao.jpg)
