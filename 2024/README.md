@@ -2,7 +2,7 @@
 
 My 2024 Supercon badge add-on is a real-time CO2 monitor with simple "stoplight" display of overall air quality using red, yellow, and green LEDs.  CO2 as a component of overall air quality isn't much talked about and health-specific requirements seem more advisory than proscriptive, but there's movement to do more in both monitoring and reducing CO2 especially in indoor settings.
 
-This is my first Supercon and my first attempt at crafting a Supercon badge add-on, but it builds on considerable work I've been doing with @ericklein exploring ways to easily measure and monitor air quality based on a wide variety of sensor inputs.
+This is my first Supercon and my first attempt at crafting a Supercon badge add-on, but it builds on [considerable work](https://github.com/ericklein/rco2) I've been doing with [@ericklein](https://github.com/ericklein/) exploring ways to easily measure and report [air quality](https://github.com/ericklein/air_quality) based on a wide variety of sensor inputs.
 
 The CO2 monitor add-on we've built is based on:
 * The Sensirion SCD40 true CO2 sensor, in particular the [Adafruit packaged version](https://www.adafruit.com/product/5187), which is small, accurate, supports I2C via either Qwiic connectors or dedicated wiring, provides additional on-board components for ease of use, and has mounting holes that allow it to be piggy-backed on a larger overall board or enclosure.
