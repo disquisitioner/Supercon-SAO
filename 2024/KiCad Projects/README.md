@@ -10,6 +10,10 @@ The KiCad files are available here.
 
 ## Schematic
 ![Add-on schematic](/2024/assets/CO2-SAO-schematic.png)
+Using the two GPIO digital lines in the SAO add-on interface to control the three LEDs in the "stoplight" requires some simple digital logic to translate the four possible values of those two lines taken together (00, 01, 10, and 11) into separate single lines that drive the LEDs. That's easily done through a combination of Boolean "and" and "not" gates, but for a variety of reasons it's more commonly the case that "nand" gates (for "not-and") are used.  It would take three "and" and three "not" gates (inverters) to do the logic translation, but if done with "nand" gates you need eight overall.  Happily the 7400 digital logic IC incorporates four nand gates into a single 14-pin package, so two of those ICs get the job done.
+
+If you're not familar with digital logic see if you can determine from the schematic how the "nand" gates make it work.
+
 
 ## PCB Layout
 ![Add-on PCB layout](/2024/assets/CO2-SAO-PCB.png)
