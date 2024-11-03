@@ -16,4 +16,6 @@ If you're not familar with digital logic see if you can determine from the schem
 
 
 ## PCB Layout
+The PCB is laid out with an eye towards how the finished add-on should look.  The three LEDs should be at the top of the add-on so they're easy to see.  They each need to be connected to the output of the digital logic circuit (nand gates) that drives them in translating the values of the two GPIO inputs from the SAO add-on connector, though each LED needs a resistor to set the proper drive current for consistent overall brightness.  There are connection points that allow the CO2 sensor to be connected to the four I2C lines from the SAO add-on connector, and four mounting holes spaced to line up with the mounting holes in the Adafruit SCD40 sensor add-on board so it can be secured atop the add-on board itself.
+
 ![Add-on PCB layout](/2024/assets/CO2-SAO-PCB.png)
